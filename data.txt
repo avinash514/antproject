@@ -1,0 +1,12 @@
+{
+	"fields": {
+		"project":
+			{
+			"key": "PROJKEY"
+			},
+			"summary": "Creating from Jenkins",
+			"description": "Powershell Pipeline Script",
+			"issuetype": {"name": "Task"}
+	}
+
+}
