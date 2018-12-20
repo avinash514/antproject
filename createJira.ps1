@@ -30,14 +30,15 @@ if ("$sonarQGstatus" -eq \'ERROR\'){
 					if ("$issueType" -eq "CODE_SMELL" -Or "$issueType" -eq "VULNERABILITY"){
 						$issueType = "Task"
 					}
-					echo "Creating JIRA with below Arguments"
-					echo "JIRA Priority : $issueSeverity"
-					echo "JIRA Summary : $issueMsg"
-					echo "JIRA Type : $issueType"
-					echo "JIRA Description : $issuePermLink"
+					Write-Output "Creating JIRA with below Arguments"
+					Write-Output "JIRA Priority : $issueSeverity"
+					Write-Output "JIRA Summary : $issueMsg"
+					Write-Output "JIRA Type : $issueType"
+					Write-Output "JIRA Description : $issuePermLink"
 					$user = [System.Text.Encoding]::UTF8.GetBytes("avinash:avinash9")
 					$headers = @{Authorization = "Basic " + [System.Convert]::ToBase64String($user)}
-					$body = Get-Content ".\\CreateJiraIssue.json" | %{$_ -replace '\$projectkey',"PROJKEY" | %{$_ -replace '\$Summary',"$issueMsg"} | %{$_ -replace '\$description',"$issuePermLink"} | %{$_ -replace '\$priority',"$issueSeverity"} | %{$_ -replace '\$issuetype',"$issueType"}
+					$body = Get-Content ".\\CreateJiraIssueTemplate.json" | %{$_ -replace "\$projectkey","PROJKEY" | %{$_ -replace "\$Summary","$issueMsg"} | %{$_ -replace "\$description","$issuePermLink"} | %{$_ -replace "\$priority","$issueSeverity"} | %{$_ -replace "\$issuetype","$issueType"}
+					Write-Output "$body"
 					#$body = Get-Content ".\\data.txt"
 					Invoke-RestMethod -URI "http://localhost:8085/rest/api/2/issue/" -Method Post -Headers $headers  -ContentType "application/json" -Body $body
 				}
