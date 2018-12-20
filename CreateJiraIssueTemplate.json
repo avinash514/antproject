@@ -3,7 +3,7 @@
 		"project":{
 			"key": "$projectkey"
 		},
-		"summary": "$Summary",
+		"summary": $Summary,
 		"description": "$description",
 		"priority":{
 						"name": "$priority"
